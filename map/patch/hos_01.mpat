@@ -1,0 +1,59 @@
+#define .NpcID:WorldEldstar_00      00
+#define .NpcID:WorldMamar_01        01
+#define .NpcID:WorldSkolar_02       02
+#define .NpcID:WorldMuskular_03     03
+#define .NpcID:WorldMisstar_04      04
+#define .NpcID:WorldKlevar_05       05
+#define .NpcID:WorldKalmar_06       06
+
+@ $Script_802427C8 {
+    0:  Call  DisablePlayerInput    ( .True )
+   10:  Call  DisablePartnerAI  ( 00000000 )
+   20:  Call  UseSettingsFrom   ( .Cam:Default  -35`  250`  -145` )
+   3C:  Call  SetPanTarget      ( .Cam:Default  -35`  250`  -145` )
+   58:  Call  SetCamDistance    ( .Cam:Default  450` )
+   6C:  Call  SetCamPitch       ( .Cam:Default *Fixed[20.0] *Fixed[-5.5] )
+   84:  Call  SetCamSpeed       ( .Cam:Default *Fixed[0.5] )
+   98:  Call  PanToTarget       ( .Cam:Default 00000000 00000001 )
+   B0:  Call  802D2C14  ( 00000002 )
+   C0:  Call  SetNpcFlagBits    ( .Npc:Partner 00000100 .True )
+   D8:  Thread
+   E0:  	Call  GetPlayerPos      ( *Var0 *Var1 *Var2 )
+   F8:  	Add   *Var2  0000001E
+  108:  	Call  SetNpcJumpscale   ( .Npc:Partner 00000000 )
+  11C:  	Call  NpcJump0  ( .Npc:Partner *Var0 *Var1 *Var2  15` )
+  13C:  	Call  SetNpcAnimation   ( .Npc:Partner 00000106 )
+  150:  EndThread
+  158:  Call  SetMusicTrack ( 00000000 .Song:StarSpiritTheme 00000001 00000008 )
+  174:  Call  SpeakToPlayer ( .NpcID:WorldEldstar_00 00120002 00120001 00000000 000A0000 ) % Welcome Mario... We've been waiting for you.
+  194:  Wait  10`
+  DA0:  Call  DisablePartnerAI      ( 00000000 )
+  DB0:  Wait  10`
+        Call  EnableNpcShadow   ( .NpcID:WorldEldstar_00 .False )
+        Call  SetNpcPos ( .NpcID:WorldEldstar_00  0`  -1000`  0` )
+  DBC:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  DD4:  Add   *Var0  00000014
+  DE4:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  E00:  Call  SetCamDistance        ( .Cam:Default  300` )
+  E14:  Call  SetCamSpeed   ( .Cam:Default *Fixed[2.0] )
+  E28:  Call  $Function_80240CB0    ( 00000001 )
+  E38:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  E50:  Add   *Var0  0000001E
+  E60:  Add   *Var2  0000001E
+  E70:  Call  SetNpcSpeed   ( .Npc:Partner *Fixed[2.0] )
+  E84:  Call  NpcMoveTo     ( .Npc:Partner *Var0 *Var2  0` )
+  EA0:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  EB4:  Wait  10`
+  EC0:  Call  PlayerFaceNpc ( .Npc:Partner .False )
+  ED4:  Call  SpeakToPlayer ( .Npc:Partner 00010008 00010001 00000000 000A000C ) % Mario... It looks like things are a lot more serio ...
+  EF4:  Call  EnablePartnerAI ( )
+  F00:  Thread
+  F08:  	Set   *GB_StoryProgress  .Story:Ch0_MetStarSpirits
+  F18:  	Call  ResetCam  ( .Cam:Default *Fixed[1.5] )
+  F2C:  EndThread
+  F34:  Call  FadeOutMusic  ( 00000000 00000BB8 )
+  F48:  Wait  10`
+  F54:  Call  DisablePlayerInput    ( .False )
+  F64:  Return
+  F6C:  End
+}

@@ -1,0 +1,175 @@
+#define .NpcID:GoombaBros_00        00
+#define .NpcID:GoombaBros_01        01
+#define .NpcID:GoombaKing_02        02
+
+@ $Script_Main_EnterWalk
+{
+    0:  Set   *GB_WorldLocation  .Location:GoombaRoad
+   10:  Call  SetSpriteShading  ( .Shading:None )
+        If *GB_StoryProgress == .Story:Ch0_DefeatedGoombaBros % FFFFFF8F
+            Set   *GF_KMR11_GoombaBrosFledToCastle  .True
+        EndIf
+   20:  Call  $Function_8024027C ( )
+   2C:  Call  SetCamPerspective ( .Cam:Default 00000003  25`  16`  4096` )
+   4C:  Call  SetCamBGColor     ( .Cam:Default  0`  0`  0` )
+   68:  Call  SetCamEnabled     ( .Cam:Default .True )
+   7C:  Call  SetCamLeadPlayer  ( .Cam:Default .False )
+   90:  Call  MakeNpcs  ( .False $NpcGroupList_80245A88 )
+   A4:  Call  ClearDefeatedEnemies ( )
+   B0:  ExecWait  $Script_MakeEntities
+   BC:  If  *GB_StoryProgress  <  .Story:Ch0_KammyReturnedToBowser % FFFFFF94
+   CC:  	Call  $Function_8024023C ( )
+   D8:  EndIf
+   E0:  ExecWait  $Script_80246EEC
+   EC:  Call  InitAnimatedModels ( )
+   F8:  Call  EnableModel   ( ~Model:eye_mask .False )
+  10C:  If  *GB_StoryProgress  <  .Story:Ch0_HitGatehouseSwitch % FFFFFF92
+  11C:  	Call  EnableModel   ( ~Model:bb .False )
+  130:  Else
+  138:  	Call  SetGroupEnabled   ( ~Model:ue 00000000 )
+  14C:  	Call  SetGroupEnabled   ( ~Model:sotokabe 00000000 )
+  160:  	Call  SetGroupEnabled   ( ~Model:tobira 00000000 )
+  174:  	Call  EnableModel   ( ~Model:b1 .False )
+  188:  	Call  EnableModel   ( ~Model:b2 .False )
+  19C:  	Call  EnableModel   ( ~Model:b3 .False )
+  1B0:  	Call  EnableModel   ( ~Model:b4 .False )
+  1C4:  	Call  EnableModel   ( ~Model:b5 .False )
+  1D8:  	Call  EnableModel   ( ~Model:b6 .False )
+  1EC:  EndIf
+  1F4:  If  *GB_StoryProgress  <  .Story:Ch0_DefeatedGoombaKing % FFFFFF90
+  204:  	If  *GF_KMR11_GoombaBrosFledToCastle  ==  .False
+  214:  		Exec  $Script_80241D5C
+  220:  		Call  SetMusicTrack ( 00000000 .Song:GoombaBrosRetreat 00000001 00000008 )
+  23C:  		ExecWait  $Script_80244284
+  248:  		Set   *GF_KMR11_GoombaBrosFledToCastle  .True
+  258:  	Else
+  260:  		Exec  $Script_802411C0
+  26C:  		Set   *Var0  $Script_80241D5C
+  27C:  		Exec  EnterWalk
+  288:  		Wait  1`
+  294:  	EndIf
+  29C:  Else
+  2A4:  	Exec  $Script_802411C0
+  2B0:  	Set   *Var0  $Script_80241D5C
+  2C0:  	Exec  EnterWalk
+  2CC:  	Wait  1`
+  2D8:  EndIf
+  2E0:  Set   *Var0  $SearchBushEvent_Bush1
+  2F0:  Bind  $Script_SearchBush_802411F0 .Trigger:WallPressA ~Collider:kusa4 00000001 00000000
+  30C:  Call  SetGroupEnabled   ( ~Model:event_cam 00000000 )
+  320:  Call  TranslateGroup    ( ~Model:g172 00000000 FFFFFC18 00000000 )
+  33C:  Call  TranslateGroup    ( ~Model:g173 00000000 FFFFFC18 00000000 )
+  358:  If  *GB_StoryProgress  >=  .Story:Ch0_HitGatehouseSwitch % FFFFFF92
+  368:  	Call  ModifyColliderFlags   ( 00000000 ~Collider:tt 7FFFFE00 )
+  380:  EndIf
+  388:  Return
+  390:  End
+}
+
+
+@ $Script_802460C0 { %kammy cutscene after GK fight
+    /%
+    0:  Call  SetMusicTrack ( 00000000 .Song:KammyKoopaTheme 00000000 00000008 )
+   1C:  Call  SetNpcVar     ( 00000004 00000000 00000001 )
+   34:  Call  SetNpcPos     ( 00000004  100`  182`  -353` )
+   50:  Call  UseSettingsFrom   ( .Cam:Default  100`  0`  -220` )
+   6C:  Call  SetPanTarget  ( .Cam:Default  100`  0`  -220` )
+   88:  Call  SetCamDistance    ( .Cam:Default  1176` )
+   9C:  Call  SetCamPosA    ( .Cam:Default  59`  -159` )
+   B4:  Call  SetCamPosB    ( .Cam:Default  -24`  -256` )
+   CC:  Call  SetCamPitch   ( .Cam:Default  8`  -5` )
+   E4:  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+   F8:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  110:  Wait  60`
+  11C:  Call  UseSettingsFrom   ( .Cam:Default  100`  0`  -220` )
+  138:  Call  SetPanTarget  ( .Cam:Default  100`  190`  -353` )
+  154:  Call  SetCamDistance    ( .Cam:Default  250` )
+  168:  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+  17C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  194:  Wait  30`
+  1A0:  Call  UseSettingsFrom   ( .Cam:Default  100`  0`  -220` )
+  1BC:  Call  SetPanTarget  ( .Cam:Default  100`  190`  -353` )
+  1D8:  Call  SetCamDistance    ( .Cam:Default  1000` )
+  1EC:  Call  SetCamSpeed   ( .Cam:Default *Fixed[0.65] )
+  200:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  218:  Wait  30`
+  224:  Thread
+  22C:  	Call  GetNpcPos ( 00000004 *Var7 *Var8 *Var9 )
+  248:  	Call  LoadPath  ( 00000050 $VectorList_80246090 00000004 .Easing:Linear )
+  264:  	Label  0
+  270:  	Call  GetNextPathPos ( )
+  27C:  	Add   *Var1  *Var7
+  28C:  	Add   *Var2  *Var8
+  29C:  	Add   *Var3  *Var9
+  2AC:  	Call  SetNpcPos ( 00000004 *Var1 *Var2 *Var3 )
+  2C8:  	Wait  1`
+  2D4:  	If  *Var0  ==  00000001
+  2E4:  		Goto  0
+  2F0:  	EndIf
+  2F8:  EndThread
+  300:  Thread
+  308:  	Loop  00000018
+  314:  		Call  PlaySoundAtNpc    ( 00000004 00000295 00000000 )
+  32C:  		Wait  4`
+  338:  	EndLoop
+  340:  EndThread
+  348:  Wait  110`
+  %/
+        Set *GB_StoryProgress .Story:Ch0_KammyReturnedToBowser % FFFFFF94
+  354:  ExecWait  $Script_ExitWalk_80241C24[38]
+  360:  Return
+  368:  End
+}
+
+
+@ $Script_Idle_80244390
+{
+    0:  Switch  *GB_StoryProgress
+    C:  	Case  <  .Story:Ch0_DefeatedGoombaKing % FFFFFF90
+   18:  		If  *GF_KMR11_GoombaBrosFledToCastle  ==  .True
+   28:  			Call  GetNpcPos ( .NpcID:GoombaKing_02 *Var0 *Var1 *Var2 )
+   44:  			%Call  AwaitPlayerApproach   ( *Var0 *Var2 0000012C )
+                    Wait 15`
+   5C:  			Call  DisablePlayerInput    ( .True )
+   6C:  			Call  SetPlayerSpeed        ( *Fixed[5.5] )
+   7C:  			Call  PlayerMoveTo  (  -564`  -64`  0` )
+   94:  		Else
+   9C:  			Label  0
+   A8:  			Call  GetSelfVar    ( 00000000 *Var0 )
+   BC:  			If  *Var0  ==  00000000
+   CC:  				Wait  1`
+   D8:  				Goto  0
+   E4:  			EndIf
+   EC:  		EndIf
+   F4:  	Case  >=  .Story:Ch0_DefeatedGoombaKing % FFFFFF90
+  100:  		Return
+  108:  EndSwitch
+  110:  Call  SetNpcJumpscale   ( .NpcID:GoombaBros_01 *Fixed[0.8] )
+  124:  Call  SetNpcJumpscale   ( .NpcID:GoombaBros_00 *Fixed[0.8] )
+  138:  Call  SetNpcJumpscale   ( .NpcID:GoombaKing_02 *Fixed[0.8] )
+  14C:  Thread
+  154:  	Call  GetNpcPos ( .NpcID:GoombaBros_01 *Var0 *Var1 *Var2 )
+  170:  	Call  GetAngleToPlayer  ( .NpcID:GoombaBros_01 *Var3 )
+  184:  	Call  AddVectorPolar    ( *Var0 *Var2 *Fixed[100.0] *Var3 )
+  1A0:  	Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_01 0000010F 00000000 )
+  1B8:  	Call  NpcJump0  ( .NpcID:GoombaBros_01 *Var0  0` *Var2  30` )
+  1D8:  EndThread
+  1E0:  Thread
+  1E8:  	Call  GetNpcPos ( .NpcID:GoombaBros_00 *Var0 *Var1 *Var2 )
+  204:  	Call  GetAngleToPlayer  ( .NpcID:GoombaBros_00 *Var3 )
+  218:  	Call  AddVectorPolar    ( *Var0 *Var2 *Fixed[100.0] *Var3 )
+  234:  	Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_00 0000010F 00000000 )
+  24C:  	Call  NpcJump0  ( .NpcID:GoombaBros_00 *Var0  0` *Var2  30` )
+  26C:  EndThread
+  274:  Thread
+  27C:  	Call  GetNpcPos ( .NpcID:GoombaKing_02 *Var0 *Var1 *Var2 )
+  298:  	Call  GetAngleToPlayer  ( .NpcID:GoombaKing_02 *Var3 )
+  2AC:  	Call  AddVectorPolar    ( *Var0 *Var2 *Fixed[100.0] *Var3 )
+  2C8:  	Call  PlaySoundAtNpc    ( .NpcID:GoombaKing_02 000003E7 00000000 )
+  2E0:  	Call  NpcJump0  ( .NpcID:GoombaKing_02 *Var0  0` *Var2  30` )
+  300:  EndThread
+  308:  Wait  15`
+  314:  Call  StartBossBattle   ( .Song:GoombaKingBattle )
+  324:  Return
+  32C:  End
+}

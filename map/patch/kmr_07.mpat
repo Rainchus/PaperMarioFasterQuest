@@ -98,51 +98,11 @@
    88:  		Call  SpeakToPlayer     ( .NpcID:GoombaBros_00 0062000B 00620003 00000000 000B00C2 ) % Geeaaaah!!! I... I'll let you go for now!
    A8:  		Wait  10`
    B4:  		Call  DisablePlayerInput    ( .True )
-   /%
-   C4:  		Wait  10`
-   D0:  		Thread
-   D8:  			Call  SetNpcJumpscale   ( .NpcID:GoombaBros_01 *Fixed[1.8] )
-   EC:  			Call  SetNpcAnimation   ( .NpcID:GoombaBros_01 00620105 )
-  100:  			Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_01 0000010F 00000000 )
-  118:  			Call  NpcJump0  ( .NpcID:GoombaBros_01  307`  25`  49`  20` )
-  138:  			Call  $Function_80240A6C ( )
-  144:  			Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_01 00002086 00000000 )
-  15C:  			Call  NpcJump0  ( .NpcID:GoombaBros_01  401`  80`  25`  30` )
-  17C:  			Wait  5`
-  188:  			Call  SetNpcSpeed       ( .NpcID:GoombaBros_01 *Fixed[6.0] )
-  19C:  			Set   *Var0  00000001
-  1AC:  			Exec  $Script_80240F00 *VarA
-  1BC:  			Call  NpcMoveTo ( .NpcID:GoombaBros_01  616`  -47`  0` )
-  1D8:  			Kill  *VarA
-  1E4:  			Call  SetNpcFlagBits    ( .NpcID:GoombaBros_01 00000200 .False )
-  1FC:  			Call  SetNpcPos ( .NpcID:GoombaBros_01  0`  -1000`  0` )
-  218:  			Wait  1`
-  224:  		EndThread
-  22C:  		Wait  30`
-  238:  		Call  SetNpcJumpscale   ( .NpcID:GoombaBros_00 *Fixed[1.8] )
-  24C:  		Call  SetNpcAnimation   ( .NpcID:GoombaBros_00 00620005 )
-  260:  		Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_00 0000010F 00000000 )
-  278:  		Call  NpcJump0  ( .NpcID:GoombaBros_00  307`  25`  49`  20` )
-  298:  		Call  $Function_80240A6C ( )
-  2A4:  		Call  PlaySoundAtNpc    ( .NpcID:GoombaBros_00 00002086 00000000 )
-  2BC:  		Call  NpcJump0  ( .NpcID:GoombaBros_00  401`  80`  25`  30` )
-  2DC:  		Wait  5`
-  2E8:  		Call  SetNpcSpeed       ( .NpcID:GoombaBros_00 *Fixed[6.0] )
-  2FC:  		Set   *Var0  00000000
-  30C:  		Exec  $Script_80240F00 *VarA
-  31C:  		Call  NpcMoveTo ( .NpcID:GoombaBros_00  616`  -47`  0` )
-  338:  		Kill  *VarA
-  344:  		Call  SetNpcFlagBits    ( .NpcID:GoombaBros_00 00000200 .False )
-  35C:  		Call  SetNpcPos ( .NpcID:GoombaBros_00  0`  -1000`  0` )
-  378:  		Wait  1`
-  384:  		Exec  $Script_80240BB0
-  %/
-  %Call  $Function_80240A6C ( ) %animate springs for goomba bros
-  Call  SetNpcFlagBits    ( .NpcID:GoombaBros_01 00000200 .False )
-  Call  SetNpcFlagBits    ( .NpcID:GoombaBros_00 00000200 .False )
-  Call  SetNpcPos ( .NpcID:GoombaBros_01  0`  -1000`  0` )
-  Call  SetNpcPos ( .NpcID:GoombaBros_00  0`  -1000`  0` )
-  Exec  $Script_80240BB0
+                Call  SetNpcFlagBits    ( .NpcID:GoombaBros_01 00000200 .False )
+                Call  SetNpcFlagBits    ( .NpcID:GoombaBros_00 00000200 .False )
+                Call  SetNpcPos ( .NpcID:GoombaBros_01  0`  -1000`  0` )
+                Call  SetNpcPos ( .NpcID:GoombaBros_00  0`  -1000`  0` )
+                Exec  $Script_80240BB0 %set music track back to plesant path
   390:  		Set   *MapVar[0]  00000001
   3A0:  		Set   *GB_StoryProgress  .Story:Ch0_DefeatedGoombaBros
   3B0:  		Call  DisablePlayerInput    ( .False )

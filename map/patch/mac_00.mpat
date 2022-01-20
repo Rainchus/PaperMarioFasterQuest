@@ -1,0 +1,72 @@
+
+#define .NpcID:ChuckQuizmo_06       06
+#define .NpcID:Toad_07              07
+#define .NpcID:Toad_08              08
+#define .NpcID:Toad_09              09
+#define .NpcID:Toad_10              0A
+#define .NpcID:ThreeSisters_11      0B
+#define .NpcID:ThreeSisters_12      0C
+#define .NpcID:ThreeSisters_13      0D
+#define .NpcID:ThreeSisters_14      0E
+#define .NpcID:Toad_15              0F
+#define .NpcID:Toad_16              10
+#define .NpcID:Toad_17              11
+#define .NpcID:ThreeSisters_18      12
+#define .NpcID:ToadKid_19           13
+#define .NpcID:ToadKid_20           14
+#define .NpcID:ShyGuy_21            15
+#define .NpcID:ShyGuy_22            16
+#define .NpcID:ShyGuy_23            17
+#define .NpcID:Toad_24              18
+#define .NpcID:Luigi_25             19
+#define .NpcID:Goompapa_26          1A
+#define .NpcID:Goomama_27           1B
+#define .NpcID:Gooma_28             1C
+#define .NpcID:HarryT_29            1D
+#define .NpcID:VannaT_30            1E
+
+#new:String $FirstToadTownEntry
+{
+[Style Right]
+Please, Mario![BR]
+Save Her Highness![Wait][End]
+}
+
+@ $Script_8024F64C {
+    0:  Call  DisablePlayerInput    ( .True )
+   10:  Call  UseSettingsFrom   ( .Cam:Default  -225`  0`  -300` )
+   2C:  Call  SetPanTarget      ( .Cam:Default  -225`  0`  -300` )
+   48:  Call  SetCamDistance    ( .Cam:Default *Fixed[800.0] )
+   5C:  Call  SetCamSpeed       ( .Cam:Default *Fixed[90.0] )
+   70:  Call  PanToTarget       ( .Cam:Default 00000000 00000001 )
+   88:  Thread
+   90:  	Wait  35`
+   9C:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[2.1] )
+   B0:  	Call  UseSettingsFrom   ( .Cam:Default  -225`  0`  -300` )
+   CC:  	Call  SetCamDistance    ( .Cam:Default *Fixed[300.0] )
+   E0:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+   F8:  	Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  10C:  	Wait  10`
+  118:  	Call  InterpNpcYaw  ( .NpcID:Toad_07  230`  0` )
+  130:  	Call  SetNpcJumpscale   ( .NpcID:Toad_07 *Fixed[1.5] )
+  144:  	Call  GetNpcPos     ( .NpcID:Toad_07 *Var0 *Var1 *Var2 )
+  160:  	Call  NpcJump0      ( .NpcID:Toad_07 *Var0 *Var1 *Var2  5` )
+  180:  	Wait  10`
+  18C:  	Call  SetNpcAnimation   ( .NpcID:Toad_07 00830003 )
+  1A0:  	Call  NpcMoveTo     ( .NpcID:Toad_07  -185`  -295`  15` )
+  1BC:  	Call  SetNpcAnimation   ( .NpcID:Toad_07 00830001 )
+  1D0:  EndThread
+  1D8:  Wait  2`
+  1E4:  Call  PlayerMoveTo  (  -225`  -300`  80` )
+  1FC:  Call  SetPlayerPos  (  -225`  0`  -300` )
+  214:  Wait  50`
+  24C:  Call  SpeakToPlayer ( .NpcID:Toad_07 00830004 00830001 00000000 $FirstToadTownEntry )
+  26C:  Call  DisablePlayerInput    ( .False )
+  27C:  Call  SetCamDistance        ( .Cam:Default *Fixed[400.0] )
+  290:  Call  SetCamSpeed   ( .Cam:Default *Fixed[4.0] )
+  2A4:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  2BC:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  2D0:  Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  2E8:  Return
+  2F0:  End
+}
