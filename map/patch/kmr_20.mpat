@@ -1,0 +1,5 @@
+@ $Script_8024FD70 { % First Play, go to starting castle room
+	Call GotoMap ( "kkj_00" 5 )
+	Return
+	End
+}

@@ -1,0 +1,19 @@
+@ $Script_ExitDoubleDoor_802401C4
+{
+    0:  SetGroup  0000001B
+    C:  Call  DisablePlayerInput    ( .True )
+   1C:  Set   *Var0  ~Entry:Entry1
+   2C:  Set   *Var1  ~Collider:deilit2
+   3C:  Set   *Var2  ~Model:door4
+   4C:  Set   *Var3  ~Model:door3
+   5C:  Exec  ExitDoubleDoor
+   68:  Wait  17`
+        If *GB_StoryProgress == FFFFFF80
+          Call  GotoMap   ( "kkj_13" 00000002 ) % kkj_13
+        Else
+          Call  GotoMap   ( $ASCII_802409E8 00000000 ) % kkj_03
+        EndIf
+   88:  Wait  100`
+   94:  Return
+   9C:  End
+}
