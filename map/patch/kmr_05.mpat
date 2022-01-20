@@ -1,0 +1,18 @@
+#new:String $GoompaIntroToEnemies {
+[Style Right]
+Striking first really helps when[BR]
+it comes to battling.[Wait][End]
+}
+
+@ $Script_80241C8C {
+    0:  Call  DisablePlayerInput    ( .True )
+   10:  Wait  10`
+   1C:  Call  SetPlayerSpeed    ( *Fixed[3.0] )
+   2C:  Call  PlayerMoveTo      (  -60`  -19`  0` )
+   44:  Call  DisablePartnerAI  ( 00000000 )
+   54:  Call  SpeakToPlayer     ( .Npc:Partner 009D0008 009D0001 00000000 $GoompaIntroToEnemies ) % Heads up, Mario! I see bad Goombas ahead. They're  ...
+   74:  Call  EnablePartnerAI ( )
+   80:  Call  DisablePlayerInput    ( .False )
+   90:  Return
+   98:  End
+}

@@ -1,0 +1,159 @@
+#define .NpcID:Goompa_00            00
+
+#new:String $GoompaFellFromVerdanaEnd {
+[Style Right]
+Mario, we'd better look for it.[Wait][End]
+}
+
+@ $Script_NpcAI_80240B50 {
+    0:  Label  1
+    C:  Switch  *GB_StoryProgress
+   18:  	Case  ==  .Story:Ch0_FellOffCliff % FFFFFF86
+   24:  		Label  59
+   30:  		Call  $Function_80240218    ( FFFFFF8A 00000056 FFFFFFBA FFFFFFF1 )
+   4C:  		Wait  1`
+   58:  		If  *Var0  ==  00000000
+   68:  			Goto  59
+   74:  		EndIf
+   7C:  		Call  DisablePlayerInput    ( .True )
+   8C:  		Call  SetNpcAux     ( .NpcID:Goompa_00 00000000 )
+   A0:  		Call  PlaySoundAtNpc    ( .NpcID:Goompa_00 00000262 00000000 )
+   B8:  		Call  ShowEmote     ( .NpcID:Goompa_00 .Emote:Exclamation  45`  15` .True  0`  0`  0`  0` )
+   E8:  		Wait  15`
+   F4:  		Call  NpcFacePlayer ( .Npc:Self 00000005 )
+  108:  		Wait  10`
+  %114:  		Call  SpeakToPlayer ( .NpcID:Goompa_00 009D0008 009D0001 00000000 000B00A6 ) % Oh, my back... Hm? Who's that? That you, Mario? I  ...
+  134:  		Call  UseSettingsFrom   ( .Cam:Default  -220`  20`  -72` )
+  150:  		Call  SetPanTarget  ( .Cam:Default  -20`  0`  68` )
+  16C:  		Call  SetCamPitch   ( .Cam:Default *Fixed[15.0] *Fixed[-8.5] )
+  184:  		Call  SetCamDistance    ( .Cam:Default  275` )
+  198:  		Call  SetCamSpeed   ( .Cam:Default *Fixed[1.5] )
+  1AC:  		Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  1C4:  		Thread
+  1CC:  			Wait  20`
+  1D8:  			Call  SetPlayerSpeed    ( *Fixed[2.0] )
+  1E8:  			Call  PlayerMoveTo      (  -38`  68`  0` )
+  200:  		EndThread
+  208:  		Call  GetNpcPos     ( .NpcID:Goompa_00 *Var7 *Var8 *Var9 )
+  224:  		Call  SetNpcSpeed   ( .NpcID:Goompa_00 *Fixed[4.0] )
+  238:  		Call  SetNpcAnimation       ( .NpcID:Goompa_00 009D0003 )
+  24C:  		Call  NpcMoveTo     ( .NpcID:Goompa_00  0`  70`  0` )
+  268:  		Call  SetNpcAnimation       ( .NpcID:Goompa_00 009D0001 )
+  27C:  		Call  InterpNpcYaw  ( .NpcID:Goompa_00  276`  20` )
+  294:  		Wait  30`
+  %2A0:  		Call  SpeakToPlayer ( .NpcID:Goompa_00 009D0008 009D0001 00000000 000B00A7 ) % This block... This block shouldn't be here. Well,  ...
+  2C0:  		Wait  5`
+  2CC:  		Call  SetPlayerAnimation    ( 00080007 )
+  2DC:  		Wait  30`
+  2E8:  		Call  SpeakToPlayer ( .NpcID:Goompa_00 009D0008 009D0001 00000000 $GoompaFellFromVerdanaEnd )
+  308:  		Call  $Function_80240000    ( 00000000 00000005 )
+  31C:  		Set   *GB_StoryProgress  .Story:Ch0_GoompaJoinedParty
+  32C:  		Call  UseSettingsFrom       ( .Cam:Default  -220`  20`  -72` )
+  348:  		Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  360:  		Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  37C:  		Call  SetCamSpeed   ( .Cam:Default *Fixed[3.0] )
+  390:  		Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  3A8:  		Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  3BC:  		Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  3D4:  		Call  EnablePartnerAI ( )
+  3E0:  		Call  DisablePlayerInput    ( .False )
+  3F0:  		Wait  1`
+  3FC:  EndSwitch
+  404:  Return
+  40C:  End
+}
+
+@ $Script_80242340 {
+    0:  Call  UseSettingsFrom   ( .Cam:Default  -270`  20`  -80` )
+   1C:  Call  SetPanTarget      ( .Cam:Default  -270`  20`  -80` )
+   38:  Call  SetCamDistance    ( .Cam:Default *Fixed[700.0] )
+   4C:  Call  SetCamSpeed       ( .Cam:Default *Fixed[90.0] )
+   60:  Call  PanToTarget       ( .Cam:Default 00000000 00000001 )
+   78:  If  *GB_StoryProgress  >=  .Story:Ch0_FoundHammer % FFFFFF89
+   88:  	Call  SetPlayerPos  (  0`  -1000`  0` )
+   A0:  	Call  DisablePlayerInput    ( .True )
+   B0:  	Call  SetPlayerPos  (  -224`  20`  -80` )
+   C8:  	Call  SetNpcPos     ( .Npc:Partner  -224`  20`  -80` )
+   E4:  	Wait  20`
+   F0:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[3.0] )
+  104:  	Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  11C:  	Call  UseSettingsFrom       ( .Cam:Default *Var0 *Var1 *Var2 )
+  138:  	Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  154:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  16C:  	Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  180:  	Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  198:  	Call  DisablePlayerInput    ( .False )
+  1A8:  	Return
+  1B0:  EndIf
+  1B8:  Call  DisablePlayerInput    ( .True )
+  1C8:  Call  DisablePlayerPhysics  ( .True )
+  /%
+  1D8:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  1F0:  Call  SetPlayerPos  ( *Var0  -1000` *Var2 )
+  208:  Wait  30`
+  214:  Call  SetCamDistance        ( .Cam:Default  220` )
+  228:  Call  SetCamSpeed   ( .Cam:Default *Fixed[1.0] )
+  23C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  254:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  268:  Thread
+  270:  	Wait  18`
+  27C:  	Call  PlaySoundAtPlayer ( 00000175 00000000 )
+  290:  	Wait  30`
+  29C:  	Call  PlaySoundAtPlayer ( 00000176 00000000 )
+  2B0:  	Wait  28`
+  2BC:  	Call  PlaySoundAtPlayer ( 00000175 00000000 )
+  2D0:  EndThread
+  2D8:  Call  HidePlayerShadow  ( .True )
+  2E8:  Call  SetPlayerAnimation    ( 00010002 )
+  2F8:  Call  SetPlayerPos      (  -224`  120`  -80` )
+  310:  Call  InterpPlayerYaw   (  90`  0` )
+  324:  Label  0
+  330:  Wait  1`
+  33C:  Call  GetPlayerPos      ( *Var0 *Var1 *Var2 )
+  354:  Add   *Var1  FFFFFFFE
+  364:  Call  SetPlayerPos      ( *Var0 *Var1 *Var2 )
+  37C:  If  *Var1  >  00000056
+  38C:  	Goto  0
+  398:  EndIf
+  
+  214:  Call  SetCamDistance        ( .Cam:Default  220` )
+  228:  Call  SetCamSpeed   ( .Cam:Default *Fixed[1.0] )
+  23C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  254:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+
+  3A0:  Call  SetPlayerPos  (  -310`  20`  -80` )
+  3B8:  Thread
+  3C0:  	Wait  20`
+  3CC:  	Call  SetPanTarget  ( .Cam:Default  -310`  20`  -80` )
+  3E8:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[0.2] )
+  3FC:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  414:  EndThread
+  41C:  Call  802D286C  ( 00002800 )
+  42C:  Call  802D2520  ( 00010002 00000005 00000005 00000001 00000001 00000000 )
+  450:  Wait  100`
+  45C:  Call  WaitForCam        ( .Cam:Default *Fixed[1.0] )
+  470:  Call  802D2520  ( 00010002 00000000 00000000 00000000 00000000 00000000 )
+  %/
+  494:  Call  HidePlayerShadow  ( .False )
+  4A4:  Call  SetPlayerAnimation    ( .PlayerAnim:BeforeJump )
+  4B4:  Wait  10`
+  4C0:  Call  SetPlayerAnimation    ( .PlayerAnim:MidairStill )
+  4D0:  Call  GetPlayerPos      ( *Var0 *Var1 *Var2 )
+  4E8:  Call  SetPlayerJumpscale    ( *Fixed[1.0] )
+  4F8:  Call  PlayerJump        ( *Var0 *Var1 *Var2  10` )
+  514:  Call  SetPlayerAnimation    ( 00010002 )
+  524:  Thread
+  52C:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[3.0] )
+  540:  	Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  558:  	Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  574:  	Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  590:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  5A8:  	Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  5BC:  	Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  5D4:  EndThread
+  5DC:  Wait  30`
+  5E8:  Call  DisablePlayerPhysics  ( .False )
+  5F8:  Call  DisablePlayerInput    ( .False )
+  608:  Return
+  610:  End
+}
