@@ -470,7 +470,6 @@ Come back and visit if you can.[Wait][End]
  16BC:  Wait  10`
  16C8:  Call  ShowMessageAtScreenPos    ( $GoombarioJoinedParty  160`  40` ) % Goombario joined your party!! Press to have him te ...
  16E0:  Exec  $Script_80243C30
- 16EC:  Wait  10`
  %16F8:  Call  SpeakToNpc    ( 00000001 009E000B 009E0001 00000000 00000002 000B0039 ) % Way to go, Goombario!
  %171C:  Wait  10`
  %1728:  Call  SpeakToPlayer ( .Npc:Partner 009D0008 009D0001 00000000 000B003A ) % Mario, I know Goombario will prove to be a worthy  ...

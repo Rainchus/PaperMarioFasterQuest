@@ -116,9 +116,19 @@
   348:  Wait  110`
   %/
         Set *GB_StoryProgress .Story:Ch0_KammyReturnedToBowser % FFFFFF94
-  354:  ExecWait  $Script_ExitWalk_80241C24[38]
+  354:  ExecWait  $Script_ExitWalk_AfterGKScene
   360:  Return
   368:  End
+}
+
+#new:Script $Script_ExitWalk_AfterGKScene {
+   38:  SetGroup  0000001B
+   44:  Call  UseExitHeading    ( 0000003C ~Entry:Entry1 )
+   58:  Exec  ExitWalk
+   64:  Call  GotoMapSpecial    ( "kmr_10" 00000000 0000000C ) % kmr_10
+   78:  Wait  100`
+   84:  Return
+   8C:  End
 }
 
 
