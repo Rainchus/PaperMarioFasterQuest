@@ -1,0 +1,9 @@
+#export:Function $API_HealStatsWithoutSlowlyTickingUp {
+    LIO t0, 8010F290
+    LB t1, 0004 (t0) %load max hp
+    SB t1, 0002 (t0) %store to current hp
+    LB t1, 0007 (t0) %load max fp
+    SB t1, 0007 (t0) %store current fp
+    JR RA
+    ORI v0, r0, 2
+}

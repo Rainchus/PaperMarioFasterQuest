@@ -132,14 +132,14 @@
 }
 
 
-@ $Script_Idle_80244390
+@ $Script_Idle_80244390 %upon mario entering the room and GK being fightable he walks up to GK
 {
     0:  Switch  *GB_StoryProgress
     C:  	Case  <  .Story:Ch0_DefeatedGoombaKing % FFFFFF90
    18:  		If  *GF_KMR11_GoombaBrosFledToCastle  ==  .True
    28:  			Call  GetNpcPos ( .NpcID:GoombaKing_02 *Var0 *Var1 *Var2 )
    44:  			%Call  AwaitPlayerApproach   ( *Var0 *Var2 0000012C )
-                    Wait 15`
+                    Wait 15` %wait 15 frames on room entry as to not call script during room transition
    5C:  			Call  DisablePlayerInput    ( .True )
    6C:  			Call  SetPlayerSpeed        ( *Fixed[5.5] )
    7C:  			Call  PlayerMoveTo  (  -564`  -64`  0` )
@@ -182,4 +182,110 @@
   314:  Call  StartBossBattle   ( .Song:GoombaKingBattle )
   324:  Return
   32C:  End
+}
+
+@ $Script_80242CF4 { %goomba king cutscene after hitting switch
+    0:  Call  DisablePlayerInput    ( .True )
+   10:  Wait  15`
+   1C:  Call  SetCamType    ( .Cam:Default 00000001 .False )
+   34:  Call  SetCamPitch   ( .Cam:Default  0` *Fixed[-12.5] )
+   4C:  Call  SetCamDistance    ( .Cam:Default  300` )
+   60:  Call  SetCamPosA    ( .Cam:Default  -389`  -12` )
+   78:  Call  SetCamPosB    ( .Cam:Default  -469`  156` )
+   90:  Call  SetPanTarget  ( .Cam:Default  -389`  120`  -12` )
+   AC:  Call  SetCamSpeed   ( .Cam:Default *Fixed[4.0] )
+   C0:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+   D8:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+   EC:  Call  SetNpcPos     ( .NpcID:GoombaKing_02  -380`  0`  -42` )
+  108:  Wait  20`
+  114:  Call  SetNpcJumpscale   ( .NpcID:GoombaKing_02 *Fixed[0.8] )
+  128:  Call  NpcFacePlayer ( .NpcID:GoombaKing_02 00000000 )
+  13C:  Call  PlaySoundAtNpc    ( .NpcID:GoombaKing_02 000003E7 00000000 )
+  154:  Call  NpcJump1      ( .NpcID:GoombaKing_02  -380`  120`  -42` 00000019 )
+  %174:  Call  ShakeCam      ( .Cam:Default 00000000  5` *Fixed[1.0] )
+  190:  Wait  10`
+  19C:  Call  SetPlayerPos  (  -497`  0`  130` )
+  1B4:  Call  InterpPlayerYaw   (  270`  0` )
+  1C8:  Call  SetNpcPos     ( .Npc:Partner  -534`  0`  127` )
+  1E4:  Call  InterpNpcYaw  ( .Npc:Partner  90`  0` )
+  %1FC:  Call  SpeakToPlayer ( .NpcID:GoombaKing_02 00630001 00630001 00000000 000B00D8 ) % Uh...Mario! Good fight and all that! I must warn y ...
+  21C:  Set   *GB_StoryProgress  .Story:Ch0_HitGatehouseSwitch
+  22C:  Call  EnableModel   ( ~Model:eye_mask .True )
+  240:  Wait  1`
+  %24C:  Exec  $Script_802424E4 *VarA
+  25C:  Call  SetCamSpeed   ( .Cam:Default *Fixed[0.7] )
+  270:  Call  UseSettingsFrom   ( .Cam:Default  0`  -100`  0` )
+  28C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  2A4:  Wait  60`
+  2B0:  Call  SpeakToPlayer ( .NpcID:GoombaKing_02 00630001 00630001 00000000 000B00D9 ) % Oh nooo!!!
+
+  
+  2D0:  Loop  00000064
+  2DC:  	Call  GetNpcPos ( .NpcID:GoombaKing_02 *Var0 *Var1 *Var2 )
+  2F8:  	Sub   *Var1  00000001
+  308:  	Call  SetNpcPos ( .NpcID:GoombaKing_02 *Var0 *Var1 *Var2 )
+  324:  	Wait  1`
+  330:  EndLoop
+  338:  Call  SetNpcPos ( .NpcID:GoombaKing_02  -303`  286`  -120` )
+  354:  Call  FadeOutMusic  ( 00000000 000003E8 )
+  /%
+  368:  Call  SetPlayerAnimation    ( .PlayerAnim:ShockStill )
+  378:  Wait  30`
+  384:  Kill  *VarA
+  390:  Thread
+  398:  	Call  ShakeCam  ( .Cam:Default 00000000  100` *Fixed[0.5] )
+  3B4:  	Call  ShakeCam  ( .Cam:Default 00000000  15` *Fixed[4.0] )
+  3D0:  	Call  ShakeCam  ( .Cam:Default 00000000  83` *Fixed[0.5] )
+  3EC:  	Call  ShakeCam  ( .Cam:Default 00000000  10` *Fixed[1.5] )
+  408:  	Call  ShakeCam  ( .Cam:Default 00000000  15` *Fixed[0.5] )
+  424:  	Call  ShakeCam  ( .Cam:Default 00000000  10` *Fixed[1.5] )
+  440:  	Call  ShakeCam  ( .Cam:Default 00000000  170` *Fixed[0.5] )
+  45C:  	Call  ShakeCam  ( .Cam:Default 00000000  10` *Fixed[3.0] )
+  478:  	Wait  50`
+  484:  	Call  ShakeCam  ( .Cam:Default 00000000  20` *Fixed[4.0] )
+  4A0:  	Wait  20`
+  4AC:  	Call  ShakeCam  ( .Cam:Default 00000000  10` *Fixed[0.5] )
+  4C8:  	Wait  20`
+  4D4:  	Call  ShakeCam  ( .Cam:Default 00000000  10` *Fixed[0.2] )
+  4F0:  	Call  PlaySound ( 000004A5 )
+  500:  EndThread
+  508:  Exec  $Script_80241B54
+  514:  Exec  $Script_80242A70
+  520:  Exec  $Script_80242B98
+  52C:  Wait  380`
+  538:  Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  550:  Call  UseSettingsFrom       ( .Cam:Default  0`  -150`  0` )
+  56C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  584:  Wait  20`
+  590:  Exec  $Script_80242170
+  59C:  Exec  $Script_80241BBC
+  5A8:  Wait  150`
+  5B4:  Wait  50`
+  %/
+  5C0:  Call  EnableModel   ( ~Model:o416 .False )
+  5D4:  Call  EnableModel   ( ~Model:o415 .False )
+  5E8:  Call  EnableModel   ( ~Model:eye_mask .False )
+        Call  EnableModel   ( ~Model:bb .True ) %enable bridge model
+  %5FC:  Call  DeleteAnimatedModel   ( 00000001 )
+  %60C:  Call  DeleteAnimatedModel   ( 00000000 )
+  61C:  Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+  634:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  648:  Exec  $Script_802411C0
+  654:  Call  DisablePartnerAI      ( 00000000 )
+  664:  Call  SetNpcJumpscale       ( .Npc:Partner *Fixed[0.8] )
+  678:  Loop  00000002
+  684:  	Call  GetNpcPos ( .Npc:Partner *Var0 *Var1 *Var2 )
+  6A0:  	Call  NpcJump0  ( .Npc:Partner *Var0 *Var1 *Var2  10` )
+  6C0:  	Wait  3`
+  6CC:  EndLoop
+  6D4:  Call  DisablePartnerAI      ( 00000000 )
+  6E4:  Call  SpeakToPlayer ( .Npc:Partner 00010008 00010001 00000000 000B00DA ) % Look! The bridge!! Now we can cross it and continu ...
+  704:  Call  EnablePartnerAI ( )
+  710:  Call  ModifyColliderFlags   ( 00000000 ~Collider:tt 7FFFFE00 )
+  728:  Set   *GB_StoryProgress  .Story:Ch0_OpenedBridgeToToadTown
+  738:  Call  DisablePlayerInput    ( .False )
+  748:  Call  EnablePartnerAI ( )
+  754:  Unbind
+  75C:  Return
+  764:  End
 }

@@ -1,5 +1,33 @@
+#define .goombarioID 1
+#define .kooperID 2
+#define .bombetteID 3
+#define .parakarryID 4
+#define .goompaID 5
+#define .wattID 6
+#define .sushieID 7
+#define .lakilesterID 8
+
+#new:Function $GivePartners {
+	ORI t0, r0, 1
+	SAB t0, 8010F2A2 %set current partner
+	LIO t0, 8010F2A4
+	ORI t1, r0, .kooperID
+	SLL t1, t1, 3 %multiply by 8 (distance between partner bools)
+	ORI t2, r0, 1
+	ADDU t1, t1, t0
+	SB t2, 0000 (t1)
+	JR RA
+	ORI v0, r0, 2
+}
+
 @ $Script_8024FD70 { % First Play, go to starting castle room
-	Call GotoMap ( "kkj_00" 5 )
+	%debug
+	Call GotoMap ("nok_01" 0)
+	Set *GB_StoryProgress FFFFFF9E
+	Call $GivePartners ()
+
+	%release
+	%Call GotoMap ( "kkj_00" 5 )
 	Return
 	End
 }

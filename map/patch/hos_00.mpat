@@ -1,0 +1,429 @@
+#define .NpcID:Twink_00             00
+#define .NpcID:FlyingMagikoopa_01   01
+#define .NpcID:ThreeSisters_02      02
+#define .NpcID:ToadKid_03           03
+
+#new:String $newTwinkString
+{
+	[Style Right]
+	[Voice Star]Ahhh[Pause 5].Yes, here it is![BR]
+	[Wait][Yield][End]
+}
+
+#new:String $newGoombarioString {
+	[Style Right]
+	OK, Mario,[BR]
+	[Pause 10]let's get down to business![Wait][End]
+}
+
+
+@ $Script_80242F20 { %twink hitting mario cutscene
+    0:  Loop
+    C:  	Wait  1`
+   18:  	Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+   30:  	If  *Var0  <  FFFFFF9C
+   40:  		BreakLoop
+   48:  	EndIf
+   50:  EndLoop
+   58:  Call  DisablePlayerInput    ( .True )
+   68:  Call  802CF56C  ( 00000002 )
+   78:  Thread
+   80:  	Add   *Var0  FFFFFFEC
+   90:  	Call  PlayerMoveTo  ( *Var0 *Var2  10` )
+   A8:  EndThread
+   B0:  Call  SetNpcPos ( .NpcID:Twink_00  50`  180`  0` )
+   CC:  Call  SetNpcJumpscale   ( .NpcID:Twink_00 00000000 )
+   E0:  Add   *Var0  FFFFFFF6
+   F0:  Call  NpcJump0  ( .NpcID:Twink_00 *Var0  20` *Var2  15` )
+  110:  Call  PlaySoundAtPlayer ( 000000E1 00000000 )
+  124:  Call  SetPlayerAnimation    ( .PlayerAnim:ShockStill )
+  134:  Call  SetNpcAnimation   ( .NpcID:Twink_00 0020000E )
+  148:  Thread
+  150:  	Call  SetNpcAnimation   ( .NpcID:Twink_00 00200016 )
+  164:  	Call  SetNpcJumpscale   ( .NpcID:Twink_00 *Fixed[0.6] )
+  178:  	Call  GetNpcPos ( .NpcID:Twink_00 *Var0 *Var1 *Var2 )
+  194:  	Add   *Var0  FFFFFF9C
+  1A4:  	Call  NpcJump0  ( .NpcID:Twink_00 *Var0  10` *Var2  20` )
+  1C4:  	Call  SetPlayerAnimation    ( 00010002 )
+  1D4:  EndThread
+  1DC:  Thread
+  1E4:  	Call  ShakeCam  ( .Cam:Default 00000000  5` *Fixed[2.0] )
+  200:  EndThread
+  208:  Thread
+  210:  	Set   *Var3  00000168
+  220:  	Loop  00000003
+  22C:  		Label  16
+  238:  		Wait  1`
+  244:  		Sub   *Var3  0000002D
+  254:  		If  *Var3  >  00000000
+  264:  			Call  SetNpcRotation    ( .NpcID:Twink_00 00000000 *Var3 00000000 )
+  280:  			If  *Var3  ==  0000010E
+  290:  				Call  SetNpcAnimation   ( .NpcID:Twink_00 0020001A )
+  2A4:  			EndIf
+  2AC:  			If  *Var3  ==  0000005A
+  2BC:  				Call  SetNpcAnimation   ( .NpcID:Twink_00 00200016 )
+  2D0:  			EndIf
+  2D8:  			Goto  16
+  2E4:  		EndIf
+  2EC:  	EndLoop
+  2F4:  	Call  SetNpcRotation    ( .NpcID:Twink_00 00000000 00000000 00000000 )
+  310:  EndThread
+  318:  Call  ShowMessageAtScreenPos    ( 000A000D  160`  40` ) % Ouch!!
+  330:  Call  SetMusicTrack ( 00000000 .Song:TwinkTheme 00000000 00000008 )
+  34C:  Call  SetPlayerAnimation        ( 00010002 )
+  35C:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200001 )
+  370:  Call  NpcFacePlayer ( .NpcID:Twink_00 00000000 )
+  384:  Call  SpeakToPlayer ( .NpcID:Twink_00 0020000C 00200001 00000000 000A000E ) % Oh, sorry, sorry, so sorry! I'm in a huge hurry!!
+  3A4:  Call  $Function_80240B20 ( )
+  3B0:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  3C8:  Add   *Var0  FFFFFFEC
+  3D8:  Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  3F4:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  410:  Call  SetCamDistance    ( .Cam:Default  275` )
+  424:  Call  SetCamPitch   ( .Cam:Default *Fixed[16.0] *Fixed[-8.5] )
+  43C:  Call  SetCamSpeed   ( .Cam:Default *Fixed[3.0] )
+  450:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  468:  Call  SetNpcSpeed   ( .NpcID:Twink_00 *Fixed[3.0] )
+  47C:  Call  GetNpcPos     ( .NpcID:Twink_00 *Var0 *Var1 *Var2 )
+  498:  Add   *Var0  00000028
+  4A8:  Call  NpcMoveTo     ( .NpcID:Twink_00 *Var0 *Var2  0` )
+  /%
+  4C4:  Call  ShowEmote     ( .NpcID:Twink_00 .Emote:Shock  45`  20` .True  0`  0`  0`  0` )
+  4F4:  Wait  20`
+  500:  Call  SetNpcAnimation   ( .NpcID:Twink_00 0020000F )
+  514:  Call  SetNpcJumpscale   ( .NpcID:Twink_00 *Fixed[1.0] )
+  528:  Loop  00000002
+  534:  	Call  GetNpcPos ( .NpcID:Twink_00 *Var0 *Var1 *Var2 )
+  550:  	Call  NpcJump0  ( .NpcID:Twink_00 *Var0 *Var1 *Var2  15` )
+  570:  EndLoop
+  578:  Call  DisablePartnerAI  ( 00000000 )
+  588:  Call  SetNpcJumpscale   ( .Npc:Partner 00000000 )
+  59C:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  5B4:  Add   *Var0  00000019
+  5C4:  Call  NpcJump0      ( .Npc:Partner *Var0 *Var1 *Var2  10` )
+  
+5E4:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200001 00000000 000A000F ) % Oh...it's...!? You're Mario, aren't you!? Thank th ...
+604:  Wait  5`
+610:  Call  GetNpcPos     ( .NpcID:Twink_00 *Var4 *Var5 *Var6 )
+62C:  Call  LoadPath      ( 00000046 $VectorList_802429D4 0000000A .Easing:Linear )
+648:  Label  1
+654:  Call  GetNextPathPos ( )
+660:  AddF  *Var1  *Var4
+670:  AddF  *Var2  *Var5
+680:  AddF  *Var3  *Var6
+690:  Call  SetNpcPos     ( .NpcID:Twink_00 *Var1 *Var2 *Var3 )
+6AC:  Call  $Function_80240994 ( )
+6B8:  Wait  1`
+6C4:  If  *Var0  ==  00000001
+6D4:  	Goto  1
+6E0:  EndIf
+6E8:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200001 )
+6FC:  Wait  10`
+708:  Call  SpeakToPlayer     ( .NpcID:Twink_00 00200009 00200001 00000000 000A0010 ) % How do you do? I'm Twink. Princess Peach asked me  ...
+%/
+728:  Call  SetNpcYaw ( .NpcID:Twink_00  270` )
+73C:  Call  SetNpcAnimation   ( .NpcID:Twink_00 0020001A )
+750:  Call  SpeakToPlayer     ( .NpcID:Twink_00 FFFFFFFF FFFFFFFF 00000005 $newTwinkString ) % Ahhh... Yes, here it is!
+
+  770:  Call  GetNpcPos ( .NpcID:Twink_00 *Var0 *Var1 *Var2 )
+  78C:  Add   *Var1  0000000F
+  79C:  Call  MakeItemEntity    ( .Item:LuckyStar *Var0 *Var1 *Var2 .ItemSpawnMode:Decoration 00000000 )
+  7C0:  Set   *MapVar[A]  *Var0
+  7D0:  Exec  $Script_80242D8C *Var8
+  7E0:  Exec  $Script_80242E98 *Var9
+  7F0:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200017 )
+  804:  Call  ContinueSpeech    ( .NpcID:Twink_00 FFFFFFFF FFFFFFFF 00000200 000A0012 ) % Here, this is it! Take it!
+  824:  Call  GetPlayerPos      ( *Var5 *Var3 *Var4 )
+  83C:  Add   *Var5  FFFFFFE2
+  84C:  Call  NpcMoveTo ( .NpcID:Twink_00 *Var5 *Var4  15` )
+  868:  Kill  *Var9
+  874:  Kill  *Var8
+  880:  Thread
+  888:  	Call  GetNpcPos ( .NpcID:Twink_00 *Var0 *Var1 *Var2 )
+  8A4:  	Add   *Var1  0000000F
+  8B4:  	Set   *Var4  *Var1
+  8C4:  	Add   *Var4  0000001E
+  8D4:  	Set   *Var3  *Var0
+  8E4:  	Call  MakeLerp  ( *Var1 *Var4 00000007 .Easing:QuadraticOut )
+  900:  	Loop
+  90C:  		Call  UpdateLerp ( )
+  918:  		Call  SetItemPos    ( *MapVar[A] *Var3 *Var0 *Var2 )
+  934:  		Wait  1`
+  940:  		Add   *Var3  00000002
+  950:  		If  *Var1  ==  00000000
+  960:  			BreakLoop
+  968:  		EndIf
+  970:  	EndLoop
+  978:  	Call  GetPlayerPos  ( *Var5 *Var6 *Var7 )
+  990:  	Add   *Var6  00000026
+  9A0:  	Call  MakeLerp      ( *Var0 *Var6 00000007 .Easing:QuadraticIn )
+  9BC:  	Loop
+  9C8:  		Call  UpdateLerp ( )
+  9D4:  		Call  SetItemPos    ( *MapVar[A] *Var3 *Var0 *Var2 )
+  9F0:  		Wait  1`
+  9FC:  		Add   *Var3  00000002
+  A0C:  		If  *Var1  ==  00000000
+  A1C:  			BreakLoop
+  A24:  		EndIf
+  A2C:  	EndLoop
+  A34:  	Call  RemoveItemEntity  ( *MapVar[A] )
+  A44:  EndThread
+  A4C:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200014 )
+  A60:  Wait  11`
+  A6C:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200015 )
+  A80:  Set   *Var0  00000007
+  A90:  Set   *Var1  00000004
+  AA0:  Call  ShowGotItem       ( *Var0 .True 00000000 )
+  AB8:  Call  AddKeyItem        ( *Var0 )
+  AC8:  Call  $Function_80240908 ( )
+  AD4:  Call  SetNpcAnimation   ( .NpcID:Twink_00 00200001 )
+  /%
+  AE8:  Wait  20`
+  AF4:  Call  SpeakToPlayer     ( .NpcID:Twink_00 00200009 00200001 00000000 000A0013 ) % That's the "Lucky Star" from Princess Peach. Now t ...
+  B14:  Call  ShowChoice        ( 001E0013 ) % Yes No
+  B24:  If  *Var0  ==  00000001
+  B34:  	Call  ContinueSpeech    ( .NpcID:Twink_00 00200009 00200001 00000000 000A0014 ) % This is important, Mario. I think you'll want to k ...
+  B54:  	Call  ShowChoice        ( 001E0013 ) % Yes No
+  B64:  	If  *Var0  !=  00000000
+  B74:  		Call  ContinueSpeech    ( .NpcID:Twink_00 00200009 00200001 00000000 000A0015 ) % Oh! OK! Great! I don't even have to explain.
+  B94:  	Else
+  B9C:  		Goto  F
+  BA8:  	EndIf
+  BB0:  Else
+  BB8:  	Label  F
+  BC4:  	Call  ContinueSpeech    ( .NpcID:Twink_00 00200009 00200001 00000000 000A0016 ) % OK. Let me explain. Let me see... Hang on. You! Be ...
+  BE4:  	Call  SpeakToPlayer     ( .Npc:Partner 00010008 00010001 00000000 000A0017 ) % Me? The name's Goombario. Of course I'll help!
+  C04:  	Call  SpeakToPlayer     ( .NpcID:Twink_00 00200009 00200001 00000000 000A0018 ) % Well, Mario and Goombario. Let's begin!
+  C24:  	Call  SetPlayerAnimation    ( 00080007 )
+  C34:  	Call  SetNpcVar ( .NpcID:Twink_00 00000000 00000001 )
+  C4C:  	Loop
+  C58:  		Call  GetNpcVar ( .NpcID:Twink_00 00000000 *Var0 )
+  C70:  		If  *Var0  ==  00000002
+  C80:  			BreakLoop
+  C88:  		EndIf
+  C90:  		Wait  1`
+  C9C:  	EndLoop
+  CA4:  EndIf
+  CAC:  Call  DisablePartnerAI  ( 00000000 )
+  CBC:  Call  SetNpcAnimation   ( .Npc:Partner 00000106 )
+  CD0:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200001 00000000 000A002F ) % Once you understand how to use the action command  ...
+  CF0:  Call  SpeakToPlayer ( .Npc:Partner 00010008 00010001 00000000 000A0030 ) % Terrific! You'll be much tougher in battle now.
+  D10:  Wait  20`
+  %/
+  D1C:  Exec  $Script_80241084 %set music
+  D28:  Call  ShowMessageAtScreenPos    ( 000A0031  320`  0` ) % Here you are!
+  D40:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  D58:  Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  D74:  Call  SetCamSpeed   ( .Cam:Default *Fixed[3.0] )
+  D88:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  DA0:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  DB4:  Thread
+  DBC:  	Wait  20`
+  DC8:  	Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  DE0:  	Add   *Var0  FFFFFF06
+  DF0:  	Div   *Var0  00000002
+  E00:  	Call  SetPanTarget  ( .Cam:Default  -250`  53`  0` )
+  E1C:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[1.4] )
+  E30:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  E48:  	Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  E5C:  	Wait  10`
+  E68:  	Call  SetPanTarget  ( .Cam:Default *Var0  0`  0` )
+  E84:  	Call  SetCamSpeed   ( .Cam:Default *Fixed[2.0] )
+  E98:  	Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  EB0:  	Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  EC4:  EndThread
+  ECC:  Exec  $Script_80242BA4 *VarA
+  EDC:  Call  LoadPath  ( 00000043 $VectorList_80242A4C 00000005 .Easing:Linear )
+  EF8:  Label  2
+  F04:  Call  GetNextPathPos ( )
+  F10:  Call  SetNpcPos ( .NpcID:FlyingMagikoopa_01 *Var1 *Var2 *Var3 )
+  F2C:  Wait  1`
+  F38:  If  *Var0  ==  00000001
+  F48:  	Goto  2
+  F54:  EndIf
+  F5C:  Kill  *VarA
+  F68:  ChildThread
+  F70:  	Loop
+  F7C:  		Loop  0000000A
+  F88:  			Call  GetNpcPos ( .NpcID:FlyingMagikoopa_01 *Var0 *Var1 *Var2 )
+  FA4:  			Add   *Var1  00000001
+  FB4:  			Call  SetNpcPos ( .NpcID:FlyingMagikoopa_01 *Var0 *Var1 *Var2 )
+  FD0:  			Wait  2`
+  FDC:  		EndLoop
+  FE4:  		Wait  3`
+  FF0:  		Loop  0000000A
+  FFC:  			Call  GetNpcPos ( .NpcID:FlyingMagikoopa_01 *Var0 *Var1 *Var2 )
+ 1018:  			Add   *Var1  FFFFFFFF
+ 1028:  			Call  SetNpcPos ( .NpcID:FlyingMagikoopa_01 *Var0 *Var1 *Var2 )
+ 1044:  			Wait  2`
+ 1050:  		EndLoop
+ 1058:  		Wait  3`
+ 1064:  	EndLoop
+ 106C:  EndChildThread
+ 1074:  Call  SetNpcAnimation   ( .NpcID:FlyingMagikoopa_01 00570000 )
+ 1088:  Loop  00000003
+ 1094:  	Call  SetNpcRotation    ( .NpcID:FlyingMagikoopa_01 00000000 00000000 0000000A )
+ 10B0:  	Wait  1`
+ 10BC:  	Call  SetNpcRotation    ( .NpcID:FlyingMagikoopa_01 00000000 00000000 00000000 )
+ 10D8:  	Wait  1`
+ 10E4:  EndLoop
+ 1128:  Kill  *VarA
+ /%
+ 10EC:  Wait  20`
+ 10F8:  Exec  $Script_80242D20 *VarA
+ 1108:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200000 00000005 000A0032 ) % What!? It can't be... Were you following me!?
+ 1128:  Kill  *VarA
+ 1134:  Wait  10`
+ 1140:  Call  GetNpcPos     ( .NpcID:FlyingMagikoopa_01 *Var0 *Var1 *Var2 )
+ 115C:  Call  UseSettingsFrom   ( .Cam:Default *Var0  0` *Var2 )
+ 1178:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+ 1194:  Call  SetCamDistance    ( .Cam:Default *Fixed[260.0] )
+ 11A8:  Call  SetCamPitch   ( .Cam:Default *Fixed[13.0] *Fixed[-8.0] )
+ 11C0:  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+ 11D4:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+ 11EC:  Wait  1`
+ 11F8:  Call  SpeakToPlayer ( .NpcID:FlyingMagikoopa_01 00570009 00570000 00000200 000A0033 ) % What a foolish Star Kid!! I knew that if I followe ...
+ %/
+ 1218:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+ 1230:  Add   *Var0  FFFFFF06
+ 1240:  Div   *Var0  00000002
+ 1250:  Call  UseSettingsFrom   ( .Cam:Default *Var0  0`  0` )
+ 126C:  Call  SetPanTarget  ( .Cam:Default *Var0  0`  0` )
+ 1288:  Call  SetCamSpeed   ( .Cam:Default *Fixed[4.0] )
+ 129C:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+ 12B4:  Call  SetNpcVar     ( .NpcID:FlyingMagikoopa_01 00000000 00000001 )
+ 12CC:  Call  EnablePartnerAI ( )
+ 12D8:  Unbind
+ 12E0:  Return
+ 12E8:  End
+}
+
+
+@ $Script_80244210 { %after magikoopa fight
+    0:  Call  SetTimeFreezeMode ( 00000001 )
+   10:  Call  SetMusicTrack ( 00000000 .Song:TwinkTheme 00000000 00000008 )
+   2C:  Wait  60`
+   38:  Call  SetCamLeadPlayer  ( .Cam:Default .True )
+   4C:  Call  GetNpcPos     ( .NpcID:Twink_00 *Var3 *Var1 *Var2 )
+   68:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+   80:  Add   *Var0  *Var3
+   90:  Div   *Var0  00000002
+   A0:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+   BC:  Call  SetCamDistance    ( .Cam:Default *Fixed[275.0] )
+   D0:  Call  SetCamPitch   ( .Cam:Default *Fixed[16.0] *Fixed[-9.0] )
+   E8:  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+   FC:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  114:  Wait  1`
+  /%
+  120:  Call  InterpNpcYaw  ( .NpcID:Twink_00  90`  0` )
+  138:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200001 00000000 000A0034 ) % Well done, Mario! You're as strong as they say. I  ...
+  158:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  170:  Call  SetPlayerJumpscale    ( *Fixed[0.5] )
+  180:  Call  PlayerJump    ( *Var0 *Var1 *Var2  15` )
+  19C:  Wait  10`
+  1A8:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200001 00000000 000A0035 ) % I'm going to return to Princess Peach's side. I'm  ...
+  
+  1C8:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  1E0:  Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  1FC:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  218:  Call  SetCamDistance    ( .Cam:Default *Fixed[700.0] )
+  22C:  Call  SetCamSpeed   ( .Cam:Default *Fixed[1.3] )
+  240:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  258:  Call  GetNpcPos     ( .NpcID:Twink_00 *Var4 *Var5 *Var6 )
+  274:  Call  LoadPath      ( 00000055 $VectorList_80242A88 00000008 .Easing:Linear )
+  290:  Label  0
+  29C:  Call  GetNextPathPos ( )
+  2A8:  AddF  *Var1  *Var4
+  2B8:  AddF  *Var2  *Var5
+  2C8:  AddF  *Var3  *Var6
+  2D8:  Call  SetNpcPos     ( .NpcID:Twink_00 *Var1 *Var2 *Var3 )
+  2F4:  Call  $Function_80240994 ( )
+  300:  Wait  1`
+  30C:  If  *Var0  ==  00000001
+  31C:  	Goto  0
+  328:  EndIf
+  330:  Wait  45`
+  33C:  Thread
+  344:  	Call  LoadPath  ( 0000003C $VectorList_80242AE8 00000006 .Easing:Linear )
+  360:  	Label  1
+  36C:  	Call  GetNextPathPos ( )
+  378:  	Call  SetNpcPos ( .NpcID:Twink_00 *Var1 *Var2 *Var3 )
+  394:  	Call  $Function_80240994 ( )
+  3A0:  	Wait  1`
+  3AC:  	If  *Var0  ==  00000001
+  3BC:  		Goto  1
+  3C8:  	EndIf
+  3D0:  EndThread
+  3D8:  Wait  30`
+  3E4:  Call  GetNpcPos     ( .NpcID:Twink_00 *Var3 *Var1 *Var2 )
+  400:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  418:  Add   *Var0  *Var3
+  428:  Div   *Var0  00000002
+  438:  Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  454:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  470:  Call  SetCamDistance    ( .Cam:Default *Fixed[275.0] )
+  484:  Call  SetCamPitch   ( .Cam:Default *Fixed[16.0] *Fixed[-8.5] )
+  49C:  Call  SetCamSpeed   ( .Cam:Default *Fixed[2.0] )
+  4B0:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  4C8:  Call  WaitForCam    ( .Cam:Default *Fixed[1.0] )
+  4DC:  Call  SpeakToPlayer ( .NpcID:Twink_00 00200009 00200001 00000000 000A0036 ) % Oh dear! I almost forgot to tell you the message f ...
+  %/
+  4FC:  Thread
+  504:  	Call  GetNpcPos ( .NpcID:Twink_00 *Var4 *Var5 *Var6 )
+  520:  	Call  LoadPath  ( 00000078 $VectorList_80242B30 00000009 .Easing:QuadraticIn )
+  53C:  	Label  2
+  548:  	Call  GetNextPathPos ( )
+  554:  	AddF  *Var1  *Var4
+  564:  	AddF  *Var2  *Var5
+  574:  	AddF  *Var3  *Var6
+  584:  	Call  SetNpcPos ( .NpcID:Twink_00 *Var1 *Var2 *Var3 )
+  5A0:  	Call  $Function_80240994 ( )
+  5AC:  	Wait  1`
+  5B8:  	If  *Var0  ==  00000001
+  5C8:  		Goto  2
+  5D4:  	EndIf
+  5DC:  EndThread
+  5E4:  Call  SetCamDistance    ( .Cam:Default *Fixed[300.0] )
+  5F8:  Call  SetCamPitch   ( .Cam:Default *Fixed[12.5] *Fixed[-10.0] )
+  610:  Call  $Function_80240B3C ( )
+  61C:  Call  SetCamPosA    ( .Cam:Default *Var0 *Var1 )
+  634:  Call  SetCamPosB    ( .Cam:Default *Var2 *Var3 )
+  64C:  Call  SetCamSpeed   ( .Cam:Default *Fixed[0.5] )
+  660:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  678:  Wait  30`
+  684:  Call  SetNpcFlagBits    ( .NpcID:Twink_00 00040000 .True )
+  69C:  SetF  *Var0  *Fixed[0.0]
+  6AC:  Loop  0000000A
+  6B8:  	AddF  *Var0  *Fixed[36.0]
+  6C8:  	Call  SetNpcRotation    ( .NpcID:Twink_00 00000000 *Var0 00000000 )
+  6E4:  	Wait  1`
+  6F0:  EndLoop
+  6F8:  Call  SetNpcFlagBits    ( .NpcID:Twink_00 00040000 .False )
+  710:  Wait  120`
+  71C:  Call  InterpNpcYaw  ( .Npc:Partner  270`  0` )
+  734:  Call  PlayerFaceNpc ( .Npc:Partner .False )
+  748:  Call  GetPlayerPos  ( *Var0 *Var1 *Var2 )
+  760:  Call  UseSettingsFrom   ( .Cam:Default *Var0 *Var1 *Var2 )
+  77C:  Call  SetPanTarget  ( .Cam:Default *Var0 *Var1 *Var2 )
+  798:  Call  SetCamDistance    ( .Cam:Default *Fixed[275.0] )
+  7AC:  Call  SetCamPitch   ( .Cam:Default *Fixed[13.0] *Fixed[-7.5] )
+  7C4:  Call  SetCamSpeed   ( .Cam:Default *Fixed[90.0] )
+  7D8:  Call  PanToTarget   ( .Cam:Default 00000000 00000001 )
+  7F0:  Wait  10`
+  7FC:  Call  DisablePartnerAI  ( 00000000 )
+  80C:  Call  SpeakToPlayer ( .Npc:Partner 00010008 00010001 00000000 $newGoombarioString ) %OK, Mario,
+  82C:  Call  EnablePartnerAI ( )
+  838:  Call  SetPlayerAnimation    ( .PlayerAnim:NodYes )
+  848:  Wait  30`
+  854:  Call  SetPlayerAnimation    ( 00010002 )
+  864:  Thread
+  86C:  	Set   *GB_StoryProgress  .Story:Ch0_TwinkGaveLuckyStar
+  87C:  	Call  SetTimeFreezeMode ( 00000000 )
+  88C:  	Call  ResetCam  ( .Cam:Default *Fixed[4.0] )
+  8A0:  EndThread
+  8A8:  Wait  10`
+  8B4:  Call  DisablePlayerInput    ( .False )
+  8C4:  Return
+  8CC:  End
+}
+

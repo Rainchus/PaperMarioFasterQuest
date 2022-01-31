@@ -15,6 +15,7 @@
         If *GB_StoryProgress == .Story:Ch0_MetStarSpirits % FFFFFF96 %first peach scene after climbing SSS
             Set *GB_StoryProgress .Story:Ch0_BeganPeachMission % FFFFFF97
             Call  GotoMapSpecial    ( "hos_00" 00000001 0000000C ) % hos_00
+            Call  $API_HealStatsWithoutSlowlyTickingUp ()
         Else
             A4:  Call  GotoMapSpecial    ( $ASCII_80240480 00000004 0000000B ) % osr_03
         EndIf

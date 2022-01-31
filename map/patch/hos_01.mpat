@@ -57,3 +57,34 @@
   F64:  Return
   F6C:  End
 }
+
+#new:Script $ScriptExitWalk2 {
+      38:  SetGroup  0000001B % 0x0C in size
+      44:  Call  UseExitHeading    ( 0000003C ~Entry:Entry0 ) %0x14 in size
+      58:  Exec  ExitWalk %
+      64:  Call  GotoMap   ( $ASCII_80245990 00000001 ) % hos_00
+      78:  Wait  100`
+      84:  Return
+      8C:  End
+}
+
+@ $Script_ExitWalk_80241384 {
+      Call  FadeOutMusic      ( 00000000 000005DC )
+      Call  GotoMapSpecial    ( $ASCII_80245990 00000001 00000001 ) % hos_00
+      Set *GB_StoryProgress FFFFFF97
+      Wait  100`
+      Call  $API_HealStatsWithoutSlowlyTickingUp ()
+      Return
+      End
+}
+
+@ $Script_80241540
+{
+    0:  Bind  $ScriptExitWalk2 .Trigger:FloorAbove ~Collider:deilisw 00000001 00000000
+   1C:  Call  GetEntryID    ( *Var0 )
+   2C:  If  *Var0  !=  ~Entry:Entry1
+   3C:  	Bind  $Script_80241418 .Trigger:FloorTouch ~Collider:deilin 00000001 00000000
+   58:  EndIf
+   60:  Return
+   68:  End
+}

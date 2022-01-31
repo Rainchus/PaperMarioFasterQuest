@@ -24,7 +24,7 @@ happy if you paid them a visit.[Wait][End]
     EndIf
 
     Call  DisablePlayerInput    ( .True )
-    Call  FullyRestoreHPandFP ( )
+    Call  $API_HealStatsWithoutSlowlyTickingUp ( )
     %Call  SetNpcPos ( .NpcID:Toad_06  -197`  39`  -188` )
     %Call  NpcMoveTo ( .NpcID:Toad_06  -192`  -230`  20` )
     Call  SetNpcPos ( .NpcID:Toad_06  -160`  19`  -310` )
