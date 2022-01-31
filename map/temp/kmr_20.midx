@@ -1,6 +1,6 @@
 $Start#Unknown#0#80240000#13060
 $Function_80240000#Function#0#80240000#24
-$ASCII_"hos_00"_Literal#ASCII#24#80240024#C
+$ASCII_"nok_01"_Literal#ASCII#24#80240024#C
 $Function_80240030#Function#30#80240030#20
 $Function_80240050#Function#50#80240050#14
 $Function_80240064#Function#64#80240064#BC

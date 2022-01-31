@@ -1,0 +1,115 @@
+#define .NpcID:Fuzzy_01             01
+#define .NpcID:Koopa_02             02
+#define .NpcID:Koopa_04             04
+#define .NpcID:Koopa_06             06
+#define .NpcID:Koopa_07             07
+#define .NpcID:Toad_08              08
+#define .NpcID:Koopa_09             09
+#define .NpcID:Fuzzy_10             0A
+#define .NpcID:Fuzzy_11             0B
+#define .NpcID:WorldBombomb_14      0E
+#define .NpcID:ChuckQuizmo_15       0F
+
+@ $Script_Interact_8024AD10 {
+    0:  If  *GF_NOK01_RecoveredShellA  ==  .True
+   10:  	Call  SpeakToPlayer ( 00000000 008F0007 008F0002 00000000 000C0003 ) % ...Say again? You're looking for a Koopa with a bl ...
+   30:  EndIf
+   38:  If  *GB_StoryProgress  >=  .Story:Ch1_ArrivedAtKoopaVillage % FFFFFF9F
+   48:  	Return
+   50:  EndIf
+   /%
+   58:  Call  SpeakToPlayer     ( 00000000 008F0007 008F0002 00000000 000C0000 ) % Can it be...? Are you Mario? Welcome to Koopa Vill ...
+   78:  Call  InterpPlayerYaw   (  227`  5` )
+   8C:  Call  SetPlayerAnimation    ( .PlayerAnim:Thinking )
+   9C:  Call  EndSpeech ( 00000000 008F0007 008F0002 00000000 )
+   B8:  Call  InterpPlayerYaw   (  47`  5` )
+   CC:  Call  SetPlayerAnimation    ( 00010002 )
+   DC:  Call  EndSpeech ( 00000000 008F0007 008F0002 00000000 )
+   F8:  Call  SetPlayerAnimation    ( .PlayerAnim:NodYes )
+  108:  Wait  15`
+  114:  Call  EndSpeech ( 00000000 008F0007 008F0002 00000000 )
+  %/
+  130:  ExecWait  $Script_8024A814
+  13C:  Call  SpeakToNpc        ( 00000000 00900009 00900002 00000000 .NpcID:Fuzzy_01 000C0001 ) % Oh, no! Stupid Fuzzy! Get back here with my shell!
+  160:  Set   *GB_StoryProgress  .Story:Ch1_ArrivedAtKoopaVillage
+  170:  Return
+  178:  End
+}
+
+
+@ $Script_8024A814
+{
+    0:  Call  GetNpcPos ( 00000000 *Var0 *Var1 *Var2 )
+   1C:  Add   *Var0  00000001
+   2C:  Add   *Var2  00000001
+   3C:  Add   *Var1  000000C8
+   4C:  Call  SetNpcPos ( .NpcID:Fuzzy_01 *Var0 *Var1 *Var2 )
+   68:  Add   *Var1  FFFFFF38
+   78:  Call  NpcJump0  ( .NpcID:Fuzzy_01 *Var0 *Var1 *Var2  20` )
+   98:  Call  PlayEffect    ( ~FX:Stars:Fan *Var0 *Var1 *Var2 00000000 FFFFFFFF 00000000 00000003 00000000 00000000 00000000 00000000 00000000 )
+   DC:  Thread
+   E4:  	Call  PanToTarget   ( .Cam:Default 00000000 00000000 )
+   FC:  	Call  SetCamSpeed   ( .Cam:Default  4` )
+  110:  	Wait  60`
+  11C:  	Call  SetCamSpeed   ( .Cam:Default  1` )
+  130:  EndThread
+  138:  Thread
+  140:  	Call  SetPlayerAnimation    ( 0008000A )
+  150:  	Wait  30`
+  15C:  	Call  SetPlayerAnimation    ( 00010002 )
+  16C:  EndThread
+  174:  Call  PlaySoundAtNpc    ( .NpcID:Fuzzy_01 00000331 00000000 )
+  18C:  Call  SetNpcSprite  ( 00000000 00900001 )
+  1A0:  Call  SetNpcAnimation   ( 00000000 0090000C )
+  1B4:  Call  GetNpcPos     ( 00000000 *Var0 *Var1 *Var2 )
+  1D0:  Add   *Var0  FFFFFFEC
+  1E0:  Add   *Var2  FFFFFFF6
+  1F0:  Call  NpcJump0      ( 00000000 *Var0 *Var1 *Var2  15` )
+  210:  Call  GetNpcPos     ( .NpcID:Fuzzy_01 *Var0 *Var1 *Var2 )
+  22C:  Add   *Var0  00000001
+  23C:  Add   *Var2  00000001
+  24C:  Call  SetNpcPos     ( .NpcID:Koopa_02 *Var0 *Var1 *Var2 )
+  268:  Add   *Var0  FFFFFFFF
+  278:  Add   *Var2  FFFFFFFF
+  288:  Wait  10`
+  294:  Add   *Var0  00000032
+  2A4:  Add   *Var2  FFFFFFEC
+  
+  2B4:  Thread
+  2BC:  	Add   *Var0  00000001
+  2CC:  	Add   *Var2  00000001
+  2DC:  	Call  NpcJump0  ( .NpcID:Koopa_02 *Var0  0` *Var2  20` )
+  2FC:  EndThread
+  304:  Wait  1`
+  
+  310:  Call  SetNpcAnimation   ( .NpcID:Fuzzy_01 002B0001 )
+  324:  Call  PlaySoundAtNpc    ( .NpcID:Fuzzy_01 00000331 00000000 )
+  33C:  Call  NpcJump0  ( .NpcID:Fuzzy_01 *Var0  0` *Var2  20` )
+  35C:  Call  SetNpcAnimation   ( 00000000 00900001 )
+  370:  Call  SetNpcAnimation   ( .NpcID:Fuzzy_01 002B000C )
+  /%
+  384:  Thread
+  38C:  	Add   *Var0  00000001
+  39C:  	Add   *Var2  00000001
+  3AC:  	Call  NpcJump0  ( .NpcID:Koopa_02 *Var0  0` *Var2  20` )
+  3CC:  EndThread
+  3D4:  Wait  1`
+  
+  3E0:  Call  PlaySoundAtNpc    ( .NpcID:Fuzzy_01 00000331 00000000 )
+  3F8:  Call  NpcJump0  ( .NpcID:Fuzzy_01 *Var0  0` *Var2  20` )
+  418:  Call  NpcFaceNpc        ( 00000000 .NpcID:Fuzzy_01 00000000 )
+  430:  Call  SetNpcAnimation   ( 00000000 00900002 )
+  444:  Thread
+  44C:  	Add   *Var0  00000001
+  45C:  	Add   *Var2  00000001
+  46C:  	Call  NpcJump0  ( .NpcID:Koopa_02 *Var0  0` *Var2  20` )
+  48C:  EndThread
+  494:  Wait  1`
+  
+  4A0:  Call  PlaySoundAtNpc    ( .NpcID:Fuzzy_01 00000331 00000000 )
+  4B8:  Call  NpcJump0  ( .NpcID:Fuzzy_01 *Var0  0` *Var2  20` )
+  4D8:  Call  SetNpcAnimation   ( .NpcID:Fuzzy_01 002B0001 )
+  %/
+  4EC:  Return
+  4F4:  End
+}
