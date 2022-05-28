@@ -7,6 +7,22 @@
 #define .sushieID 7
 #define .lakilesterID 8
 
+#new:Function $GiveBootsAndHammer {
+	LIO t0, 8010F290
+	ORI t1, r0, 0202
+	SH t1, 0000 (t0)
+	JR RA
+	ORI v0, r0, 0002
+}
+
+#new:Function $GiveActionCommands {
+	ORI t0, r0, 1
+	SAB t0, 8010F29A
+	JR RA
+	ORI v0, r0, 2
+}
+
+
 #new:Function $GivePartners {
 	ORI t0, r0, 1
 	SAB t0, 8010F2A2 %set current partner
@@ -22,9 +38,11 @@
 
 @ $Script_8024FD70 { % First Play, go to starting castle room
 	%debug
-	Call GotoMap ("nok_01" 0)
+	Call GotoMap ("trd_05" 0)
 	Set *GB_StoryProgress FFFFFF9E
 	Call $GivePartners ()
+	Call $GiveBootsAndHammer ()
+	Call $GiveActionCommands ()
 
 	%release
 	%Call GotoMap ( "kkj_00" 5 )

@@ -1,0 +1,7 @@
+Opening Scenes:
+mario starts the game entering the castle
+after making your way to bowser, the battle instantly starts upon entering the room
+immediately after dying mario it fades into goomba village
+
+Goomba Village:
+toad says one textbox, mario jumps in place
