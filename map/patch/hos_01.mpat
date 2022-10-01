@@ -27,6 +27,7 @@
   158:  Call  SetMusicTrack ( 00000000 .Song:StarSpiritTheme 00000001 00000008 )
   174:  Call  SpeakToPlayer ( .NpcID:WorldEldstar_00 00120002 00120001 00000000 000A0000 ) % Welcome Mario... We've been waiting for you.
   194:  Wait  10`
+        Call  FullyRestoreHPandFP ( )
   DA0:  Call  DisablePartnerAI      ( 00000000 )
   DB0:  Wait  10`
         Call  EnableNpcShadow   ( .NpcID:WorldEldstar_00 .False )
